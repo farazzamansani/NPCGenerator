@@ -1,0 +1,101 @@
+﻿@page "/GenerateNPC"
+@using BlazorWebApp2.Shared
+@inject HttpClient Http
+<style type="text/css">.main-layout { display: flex;
+                           flex-direction: row;}
+
+                       .NPCHeading { display: flex; align-content: end}
+
+                       .NPCText  { display: flex;
+                           text-align: end;
+                           align-self: end;
+                           justify-self: end;
+                           
+                       }
+
+                       .tr {  display: flex; justify-items: end }
+</style>
+
+<PageTitle>NPC Generator</PageTitle>
+
+<h1> Icewind Dale NPC Generator</h1>
+
+<p>This component demonstrates Generating a single NPC</p>
+
+
+@if (npc == null)
+{
+    <p><em>Loading...</em></p>
+    <button class="btn btn-primary" @onclick="IncrementCount">Refresh</button>
+}
+else
+{
+    /*<div class="main-layout">
+        <h3 class="NPCHeading">First Name:</h3>
+        <p class="NPCText">@npc.FirstName</p>
+    </div>*/
+
+    <table class="table">
+    <tr class="tr">
+        <th><h3 class="NPCHeading">First Name:</h3></th>
+        <th><p class="NPCText">@npc.FirstName</p></th>
+    </tr>
+    </table>
+  
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Age</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>SkinTone</th>
+                <th>HairColor</th>
+                <th>HairStyle</th>
+                <th>ColdTolerance</th>
+                <th>Musculature </th>
+                <th>Weights </th>
+                <th>AurilAttitude</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@npc.Age</td>
+                <td>@npc.FirstName</td>
+                <td>@npc.LastName</td>
+                <td>@npc.SkinTone</td>
+                <td>@npc.HairColor</td>
+                <td>@npc.HairStyle</td>
+                <td>@npc.ColdTolerance</td>
+                <td>@npc.Musculature </td>
+                <td>@npc.Weights </td>
+                <td>@npc.AurilAttitude</td>
+            </tr>
+        </tbody>
+        <button class="btn btn-primary" @onclick="IncrementCount">Refresh</button>
+    </table>
+}
+
+@code {
+    private NPC? npc;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            //var Request = await Http.GetStringAsync("NPCGenerator/single");
+            npc = await Http.GetFromJsonAsync<NPC>("NPCGenerator/single");
+        }
+        catch (Exception e)
+        {
+            var a = e;
+        }
+    }
+    private async void IncrementCount()
+    {
+        //var Request = await Http.GetStringAsync("NPCGenerator/single");
+        npc = await Http.GetFromJsonAsync<NPC>("NPCGenerator/single");
+    }
+}
