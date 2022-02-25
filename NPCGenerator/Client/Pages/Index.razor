@@ -1,0 +1,44 @@
+﻿@page "/"
+@inject NavigationManager NavigationManager
+<PageTitle>Index</PageTitle>
+
+<h1>Icewind Dale NPC Generator</h1>
+
+Sick of other generators creating characters that simply dont fit into icewind dale?
+Do you wish your NPC's came pregenerated with icewind dale specific features? Auril Attitude? Cold Tolerance? Winter Clothing?
+Do you want a generator that displays data nicely and also allows compact text to paste into your note taking app of choice?
+Do you find issue with generators when NPC's have equal chances of being weird, cultists, {insert extremist state} etc as they have of being relativly normal?
+If you answered yes to any of the above, then this may be the generator for you!
+<br/><br/>
+This generator uses specialised random weightings with features that influence each other.
+For example facial hair is influenced by sex, major injuries are far less likley than frostbite.
+Ages generated are more likley to be young-middle aged given human survivability in the region.
+Religions are more specific and likley to the region, (Auril and Lathander are high, Devils are super low and levistus a little higher).
+
+<br/><br/>
+<button @onclick="NavigateToGenerateNpcComponent">Click here to get started!</button>
+<style>
+    img {
+        width: 100px;
+        border-radius: 50px;
+        float: left;
+        margin-right: 10px;
+    }
+     p.username {
+         font-weight: bold;
+    }
+     
+</style>
+<body>
+
+
+</body>
+
+@code {
+
+    private void NavigateToGenerateNpcComponent()
+    {
+        NavigationManager.NavigateTo("GenerateNPC", false);
+    }
+
+}

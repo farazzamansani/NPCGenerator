@@ -1,0 +1,61 @@
+﻿@namespace NPCGenerator.Client.Components
+@using NPCGenerator.Shared
+@using System.ComponentModel
+@using System.Reflection.Metadata.Ecma335
+@using System.Text.Json
+@using System.Text.Json.Serialization
+@using NPCGenerator.Client.Pages
+
+
+@using JsonSerializer = System.Text.Json.JsonSerializer
+@using JsonConverter = System.Text.Json.Serialization.JsonConverter
+
+@inject HttpClient Http
+<style type="text/css">.CentralButton { align-content: center; align-items: center; align-self: center; flex: 1}
+</style>
+
+<th>
+    <div class="CentralButton">
+        <button class="btn btn-roll-single CentralButton" @onclick="Update">
+            <span class="fa fa-dice-d20"></span>
+        </button>
+        <br/>
+        <p>@PropertyName.ToString()</p>
+    </div>
+</th>
+
+@code {
+    [Parameter]
+    public NPCAttributes.Attribute PropertyName { get; set; }
+
+    [Parameter]
+    public NPC npc { get; set; } = null!;
+
+    //public delegate void MyDelegateType();
+
+    //[Parameter]
+    //public MyDelegateType handler { get; set; }
+
+    [Parameter]
+    public EventCallback<NPC> OnButtonClick { get; set; }
+
+    public async void Update()
+    {
+
+        var httpResponse = await Http.PostAsJsonAsync($"NPCGenerator/rerollAttribute/{PropertyName}",npc);
+
+        if ( httpResponse.Content is object && httpResponse.Content.Headers.ContentType != null && httpResponse.Content.Headers.ContentType.MediaType == "application/json")
+        {
+            var result  = httpResponse.Content.ReadAsStringAsync().Result;
+            var r = JsonSerializer.Deserialize<NPC>(result,new JsonSerializerOptions 
+            {
+                PropertyNameCaseInsensitive = true//Important with the System.Text.Json reader
+            });
+
+
+            if (r != null) npc = r;
+        }
+
+        await OnButtonClick.InvokeAsync(npc);
+    }
+}

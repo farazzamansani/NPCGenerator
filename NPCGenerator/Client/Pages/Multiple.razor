@@ -1,0 +1,75 @@
+﻿@page "/multiple"
+@using NPCGenerator.Shared
+@using System.ComponentModel
+@inject HttpClient Http
+
+<header>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+</header>
+<PageTitle>NPC Generator</PageTitle>
+
+<h1> Icewind Dale NPC Generator</h1>
+
+
+@if (npcs == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Age</th>
+                <th>Sex</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>SkinTone</th>
+                <th>HairColor</th>
+                <th>HairStyle</th>
+                <th>FacialHair</th>
+                <th>Musculature </th>
+                <th>BodyFat </th>
+                <th>AurilAttitude</th>
+                <th>Voice</th>
+                <th>Friendliness</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var npc in npcs)
+        {
+            <tr>
+                <td>@npc.Age</td>
+                <td>@npc.Sex</td>
+                <td>@npc.FirstName</td>
+                <td>@npc.LastName</td>
+                <td>@npc.SkinTone</td>
+                <td>@npc.HairColor</td>
+                <td>@npc.HairStyle</td>
+                <td>@npc.FacialHair</td>
+                <td>@npc.Musculature </td>
+                <td>@npc.BodyFat </td>
+                <td>@npc.AurilAttitude</td>
+                <td>@npc.Voice</td>
+                <td>@npc.Friendliness</td>
+            </tr>
+        }
+        </tbody>
+        <button class="btn btn-primary" @onclick="Refresh">Refresh</button>
+    </table>
+
+}
+
+@code {
+    private NPC[]? npcs;
+
+    protected override async Task OnInitializedAsync()
+    {
+        npcs = await Http.GetFromJsonAsync<NPC[]>("NPCGenerator");
+    }
+    private async void Refresh()
+    {
+        npcs = await Http.GetFromJsonAsync<NPC[]>("NPCGenerator");
+    }
+}
