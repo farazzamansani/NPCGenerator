@@ -1,0 +1,73 @@
+﻿namespace NPCGenerator.Shared;
+
+public static class NPCAttributes
+{
+    public enum Attribute
+    {
+        Age,
+        Sex,
+        FirstName,
+        LastName,
+        SkinTone,
+        HairColor,
+        HairStyle,
+        FacialHair,
+        ColdTolerance,
+        Musculature,
+        BodyFat,
+        AurilAttitude,
+        Voice,
+        Friendliness,
+        Clothes,
+        AttitudeToMagic,
+        Quirks,
+        Worship,
+        Cleanliness,
+        Injuries,
+        EyeColor
+    }
+    //[EnumMember(Value = "Age")] Age,
+    //[EnumMember(Value = "Sex")] Sex,
+    //[EnumMember(Value = "FirstName")] FirstName,
+    //[EnumMember(Value = "LastName")] LastName,
+    //[EnumMember(Value = "SkinTone")] SkinTone,
+    //[EnumMember(Value = "HairColor")] HairColor,
+    //[EnumMember(Value = "HairStyle")] HairStyle,
+    //[EnumMember(Value = "FacialHair")] FacialHair,
+    //[EnumMember(Value = "ColdTolerance")] ColdTolerance,
+    //[EnumMember(Value = "Musculature")] Musculature,
+    //[EnumMember(Value = "BodyFat")] BodyFat,
+    //[EnumMember(Value = "AurilAttitude")] AurilAttitude,
+    //[EnumMember(Value = "Voice")] Voice,
+    //[EnumMember(Value = "Friendliness")] Friendliness,
+    //[EnumMember(Value = "Clothes")] Clothes,
+    //[EnumMember(Value = "AttitudeToMagic")] AttitudeToMagic,
+    //[EnumMember(Value = "Quirks")] Quirks,
+    //[EnumMember(Value = "Worship")] Worship,
+    //[EnumMember(Value = "Cleanliness")] Cleanliness,
+    //[EnumMember(Value = "Injuries")] Injuries,
+    //[EnumMember(Value = "EyeColor")] EyeColor
+
+    //public const string
+    //    Age = "Age",
+    //    Sex = "Sex",
+    //    FirstName = "FirstName",
+    //    LastName = "LastName",
+    //    SkinTone = "SkinTone",
+    //    HairColor = "HairColor",
+    //    HairStyle = "HairStyle",
+    //    FacialHair = "FacialHair",
+    //    ColdTolerance = "ColdTolerance",
+    //    Musculature = "Musculature",
+    //    BodyFat = "BodyFat",
+    //    AurilAttitude = "AurilAttitude",
+    //    Voice = "Voice",
+    //    Friendliness = "Friendliness",
+    //    Clothes = "Clothes",
+    //    AttitudeToMagic = "AttitudeToMagic",
+    //    Quirks = "Quirks",
+    //    Worship = "Worship",
+    //    Cleanliness = "Cleanliness",
+    //    Injuries = "Injuries",
+    //    EyeColor = "EyeColor";
+}
