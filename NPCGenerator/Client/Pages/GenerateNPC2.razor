@@ -1,0 +1,157 @@
+﻿@page "/GenerateNPC2"
+@using NPCGenerator.Shared
+@using System.ComponentModel
+@using System.Text.Json
+
+@inject HttpClient Http
+<style type="text/css">.main-layout { display: flex;
+                           flex-direction: row;}
+
+                       .NPCText  { display: flex;
+                           text-align: end;
+                           align-self: end;
+                           justify-self: end;
+                           
+                       }
+                       .reroll{
+                           padding-right: 10px;
+                       }
+
+                       .tr {  display: flex; justify-items: end }
+                       .CompactHeading{display: inline; }
+                       .div {
+                           display:inline-block;
+                       }
+                       
+</style>
+<head>
+    <PageTitle>NPC Generator</PageTitle>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+</head>
+
+<h1> Icewind Dale NPC Generator</h1>
+
+
+@if (npc == null)
+{
+    <p><em>Loading...</em></p>
+    <button class="btn btn-primary" @OnClick="RefreshNPC">Refresh</button>
+}
+else
+{
+    <select class="form-control selectpicker" @bind="_sexSelection">
+        <option>Any Sex</option>
+        <option value="Male">Male</option> 
+        <option value="Female">Female</option> 
+    </select>
+
+    <div style="display: flex; flex-wrap: wrap;">
+        
+
+       
+        <NPCHeading PropertyName="NPCAttributes.Attribute.Age" OnButtonClick="Refresh" npc="npc" Value="@npc.Age.ToString()"/>
+        <NPCHeading PropertyName="NPCAttributes.Attribute.Sex" OnButtonClick="Refresh" npc="npc" Value="@npc.Sex"/>
+        <NPCHeading PropertyName="NPCAttributes.Attribute.FirstName" OnButtonClick="Refresh" npc="npc" Value="@npc.FirstName"/>
+        <NPCHeading PropertyName="NPCAttributes.Attribute.LastName" OnButtonClick="Refresh" npc="npc" Value="@npc.LastName"/>
+        <NPCHeading PropertyName="NPCAttributes.Attribute.Voice" OnButtonClick="Refresh" npc="npc" Value="@npc.Voice"/>
+        <NPCHeading PropertyName="NPCAttributes.Attribute.BodyFat" OnButtonClick="Refresh" npc="npc" Value="@npc.BodyFat"/>
+        <NPCHeading PropertyName="NPCAttributes.Attribute.Musculature" OnButtonClick="Refresh" npc="npc" Value="@npc.Musculature"/>
+    
+
+
+        <NPCHeading PropertyName="NPCAttributes.Attribute.SkinTone" OnButtonClick="Refresh" npc="npc" Value="@npc.SkinTone"/>
+        <NPCHeading PropertyName="NPCAttributes.Attribute.HairColor" OnButtonClick="Refresh" npc="npc" Value="@npc.HairColor"/>
+        <NPCHeading PropertyName="NPCAttributes.Attribute.EyeColor" OnButtonClick="Refresh" npc="npc" Value="@npc.EyeColor"/>
+        <NPCHeading PropertyName="NPCAttributes.Attribute.FacialHair" OnButtonClick="Refresh" npc="npc" Value="@npc.FacialHair"/>
+        <NPCHeading PropertyName="NPCAttributes.Attribute.HairStyle" OnButtonClick="Refresh" npc="npc" Value="@npc.HairStyle"/>
+        <NPCHeading PropertyName="NPCAttributes.Attribute.AurilAttitude" OnButtonClick="Refresh" npc="npc" Value="@npc.AurilAttitude"/>
+        <NPCHeading PropertyName="NPCAttributes.Attribute.Worship" OnButtonClick="Refresh" npc="npc" Value="@npc.Worship"/>
+   
+         
+       
+        <NPCHeading PropertyName="NPCAttributes.Attribute.Cleanliness" OnButtonClick="Refresh" npc="npc" Value="@npc.Cleanliness"/>
+        <NPCHeading PropertyName="NPCAttributes.Attribute.Injuries" OnButtonClick="Refresh" npc="npc" Value="@npc.Injuries"/>
+        <NPCHeading PropertyName="NPCAttributes.Attribute.ColdTolerance" OnButtonClick="Refresh" npc="npc" Value="@npc.ColdTolerance"/>
+        <NPCHeading PropertyName="NPCAttributes.Attribute.Friendliness" OnButtonClick="Refresh" npc="npc" Value="@npc.Friendliness"/>
+        <NPCHeading PropertyName="NPCAttributes.Attribute.AttitudeToMagic" OnButtonClick="Refresh" npc="npc" Value="@npc.AttitudeToMagic"/>
+        <NPCHeading PropertyName="NPCAttributes.Attribute.Quirks" OnButtonClick="Refresh" npc="npc" Value="@npc.Quirks"/>
+        <NPCHeading PropertyName="NPCAttributes.Attribute.Clothes" OnButtonClick="Refresh" npc="npc" Value="@npc.Clothes"/>
+    </div>
+     
+        <button class="btn btn-primary" @onclick="RefreshNPC"><span class="fa fa-dice-d20 reroll"></span>Reroll</button>
+ 
+  
+        
+        string message = "<tr><p>";
+    @foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(@npc))
+        {
+            string name = descriptor.Name;
+            object? value = descriptor.GetValue(@npc);
+            message += $"<b>{name}</b>:{value},";
+        }
+        message += "</p></tr>";
+
+    <button class="btn btn-primary" @onclick="() => _showCompact=!_showCompact">Compact Form<span  style="padding-left: 1em; "  class="fas fa-info-circle" aria-hidden="true" data-toggle="tooltip" data-placement="right" title="Need to quickly record this NPCs details? Copy paste the below compacted text into your choice of text editor"></span></button>
+
+
+    @if (_showCompact)
+    {
+        <p>
+        @((MarkupString)message)
+        </p>
+    }
+
+}
+
+@code {
+    private NPC? npc;
+    private bool _showCompact = false;
+    private string? _sexSelection = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        try
+        {
+            Console.WriteLine("Requesting");
+            //var Request = await Http.GetStringAsync("NPCGenerator/single");
+            Console.WriteLine("Request is");
+            var req = "NPCGenerator/single";
+            npc = await Http.GetFromJsonAsync<NPC>(req);
+        }
+        catch (Exception e)
+        {
+            var a = e;
+        }
+    }
+    private async void RefreshNPC()
+    {
+        if (string.IsNullOrWhiteSpace(_sexSelection) == false)
+        {
+            var npcRequest = new NPCRequest() { Sex = _sexSelection };
+            var httpResponse = await Http.PostAsJsonAsync($"NPCGenerator/singleSpecific",npcRequest);
+            if ( httpResponse.Content is object && httpResponse.Content.Headers.ContentType != null && httpResponse.Content.Headers.ContentType.MediaType == "application/json")
+            {
+                var result  = httpResponse.Content.ReadAsStringAsync().Result;
+                var r = JsonSerializer.Deserialize<NPC>(result,new JsonSerializerOptions 
+                {
+                    PropertyNameCaseInsensitive = true//Important with the System.Text.Json reader
+                });
+
+                if (r != null) npc = r;
+            }
+        }
+        else
+        {
+            npc = await Http.GetFromJsonAsync<NPC>("NPCGenerator/single");
+        }
+    }
+
+    private void Refresh(NPC? updatedNpc)
+    {
+        npc = updatedNpc;
+      //  this.StateHasChanged(); //As the child calls this we need to alert to a state change.
+        
+    }
+}

@@ -1,5 +1,6 @@
 using System.ComponentModel.Design;
 using System.Reflection.Metadata;
+using Blazored.Modal;
 using Microsoft.AspNetCore.ResponseCompression;
 using NPCGenerator.Server.Services;
 
@@ -13,6 +14,7 @@ builder.Services.AddRazorPages();
 //builder.Services.AddScoped<IMyDependency, MyDependency>(); //In non server blazor this is the same as a singleton
 builder.Services.AddTransient<IMyDependency, MyDependency>();
 builder.Services.AddSingleton<IGenerator, Generator>();
+builder.Services.AddBlazoredModal();
 
 var app = builder.Build();
 

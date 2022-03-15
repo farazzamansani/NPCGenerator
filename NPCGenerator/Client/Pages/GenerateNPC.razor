@@ -2,15 +2,13 @@
 @using NPCGenerator.Shared
 @using System.ComponentModel
 @using System.Text.Json
+@using Blazored.Modal
+@using Blazored.Modal.Services
 
+@inject IModalService modal
 @inject HttpClient Http
 <style type="text/css">.main-layout { display: flex;
                            flex-direction: row;}
-
-                       .NPCHeading { display: flex;
-                           align-content: end;
-                           font-size: 1.2em;
-                       }
 
                        .NPCText  { display: flex;
                            text-align: end;
@@ -47,7 +45,8 @@ else
         <option value="Female">Female</option> 
     </select>
 
-    <table class="table">
+    <div style="overflow:scroll; max-width:95vw;">
+    <table class="table" style="width:100vw">
         <thead>
         <tr>
             <NPCHeading PropertyName="NPCAttributes.Attribute.Age" OnButtonClick="Refresh" npc="npc"/>
@@ -108,7 +107,7 @@ else
         </tbody>
         <button class="btn btn-primary" @onclick="RefreshNPC"><span class="fa fa-dice-d20 reroll"></span>Reroll</button>
     </table>
-
+    </div>
         
         string message = "<tr><p>";
     @foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(@npc))
@@ -135,7 +134,8 @@ else
     private NPC? npc;
     private bool _showCompact = false;
     private string? _sexSelection = null;
-
+    private int _clicks = 0;
+    private List<int> notifyingCounts = new List<int>() { 10, 30, 60, 100};
     protected override async Task OnInitializedAsync()
     {
 
@@ -172,6 +172,12 @@ else
         else
         {
             npc = await Http.GetFromJsonAsync<NPC>("NPCGenerator/single");
+        }
+        _clicks = 9;
+        _clicks++;
+        if (notifyingCounts.Contains(_clicks))
+        {
+            modal.Show<SupportPopUp>("Please consider supporting this project");
         }
     }
 
