@@ -39,77 +39,48 @@
 }
 else
 {
+
     <select class="form-control selectpicker" @bind="_sexSelection">
         <option>Any Sex</option>
         <option value="Male">Male</option> 
         <option value="Female">Female</option> 
     </select>
 
-    <div style="overflow:scroll; max-width:95vw;">
-    <table class="table" style="width:100vw">
-        <thead>
-        <tr>
-            <NPCHeading PropertyName="NPCAttributes.Attribute.Age" OnButtonClick="Refresh" npc="npc"/>
-            <NPCHeading PropertyName="NPCAttributes.Attribute.Sex" OnButtonClick="Refresh" npc="npc"/>
-            <NPCHeading PropertyName="NPCAttributes.Attribute.FirstName" OnButtonClick="Refresh" npc="npc"/>
-            <NPCHeading PropertyName="NPCAttributes.Attribute.LastName" OnButtonClick="Refresh" npc="npc"/>
-            <NPCHeading PropertyName="NPCAttributes.Attribute.Voice" OnButtonClick="Refresh" npc="npc"/>
-            <NPCHeading PropertyName="NPCAttributes.Attribute.BodyFat" OnButtonClick="Refresh" npc="npc"/>
-            <NPCHeading PropertyName="NPCAttributes.Attribute.Musculature" OnButtonClick="Refresh" npc="npc"/>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>@npc.Age</td>
-            <td>@npc.Sex</td>
-            <td>@npc.FirstName</td>
-            <td>@npc.LastName</td>
-            <td>@npc.Voice</td>
-            <td>@npc.BodyFat </td>
-            <td>@npc.Musculature </td>
-        </tr>
-        <tr>
-            <NPCHeading PropertyName="NPCAttributes.Attribute.SkinTone" OnButtonClick="Refresh" npc="npc"/>
-            <NPCHeading PropertyName="NPCAttributes.Attribute.HairColor" OnButtonClick="Refresh" npc="npc"/>
-            <NPCHeading PropertyName="NPCAttributes.Attribute.EyeColor" OnButtonClick="Refresh" npc="npc"/>
-            <NPCHeading PropertyName="NPCAttributes.Attribute.FacialHair" OnButtonClick="Refresh" npc="npc"/>
-            <NPCHeading PropertyName="NPCAttributes.Attribute.HairStyle" OnButtonClick="Refresh" npc="npc"/>
-            <NPCHeading PropertyName="NPCAttributes.Attribute.AurilAttitude" OnButtonClick="Refresh" npc="npc"/>
-            <NPCHeading PropertyName="NPCAttributes.Attribute.Worship" OnButtonClick="Refresh" npc="npc"/>
-        </tr>
-        <tr>
-            <td>@npc.SkinTone</td>
-            <td>@npc.HairColor</td>
-            <td>@npc.EyeColor</td>
-            <td>@npc.FacialHair</td>
-            <td>@npc.HairStyle</td>
-            <td>@npc.AurilAttitude</td>
-            <td>@npc.Worship</td>
-        </tr>
-        <tr>
-            <NPCHeading PropertyName="NPCAttributes.Attribute.Cleanliness" OnButtonClick="Refresh" npc="npc"/>
-            <NPCHeading PropertyName="NPCAttributes.Attribute.Injuries" OnButtonClick="Refresh" npc="npc"/>
-            <NPCHeading PropertyName="NPCAttributes.Attribute.ColdTolerance" OnButtonClick="Refresh" npc="npc"/>
-            <NPCHeading PropertyName="NPCAttributes.Attribute.Friendliness" OnButtonClick="Refresh" npc="npc"/>
-            <NPCHeading PropertyName="NPCAttributes.Attribute.AttitudeToMagic" OnButtonClick="Refresh" npc="npc"/>
-            <NPCHeading PropertyName="NPCAttributes.Attribute.Quirks" OnButtonClick="Refresh" npc="npc"/>
-            <NPCHeading PropertyName="NPCAttributes.Attribute.Clothes" OnButtonClick="Refresh" npc="npc"/>
-        </tr>
-        <tr>
-            <td>@npc.Cleanliness</td>
-            <td>@npc.Injuries</td>
-            <td>@npc.ColdTolerance</td>
-            <td>@npc.Friendliness</td>
-            <td>@npc.AttitudeToMagic</td>
-            <td>@npc.Quirks</td>
-            <td>@npc.Clothes</td>
-        </tr>
-        </tbody>
-        <button class="btn btn-primary" @onclick="RefreshNPC"><span class="fa fa-dice-d20 reroll"></span>Reroll</button>
-    </table>
+    
+    <div style="display: flex; flex-wrap: wrap;">
+
+        <NPCHeading PropertyName="NPCAttributes.Attribute.Age" OnButtonClick="Refresh" npc="npc" Value="@npc.Age.ToString()"/>
+        <NPCHeading PropertyName="NPCAttributes.Attribute.Sex" OnButtonClick="Refresh" npc="npc" Value="@npc.Sex"/>
+        <NPCHeading PropertyName="NPCAttributes.Attribute.FirstName" OnButtonClick="Refresh" npc="npc" Value="@npc.FirstName"/>
+        <NPCHeading PropertyName="NPCAttributes.Attribute.LastName" OnButtonClick="Refresh" npc="npc" Value="@npc.LastName"/>
+        <NPCHeading PropertyName="NPCAttributes.Attribute.Voice" OnButtonClick="Refresh" npc="npc" Value="@npc.Voice"/>
+        <NPCHeading PropertyName="NPCAttributes.Attribute.BodyFat" OnButtonClick="Refresh" npc="npc" Value="@npc.BodyFat"/>
+        <NPCHeading PropertyName="NPCAttributes.Attribute.Musculature" OnButtonClick="Refresh" npc="npc" Value="@npc.Musculature"/>
+    
+
+
+        <NPCHeading PropertyName="NPCAttributes.Attribute.SkinTone" OnButtonClick="Refresh" npc="npc" Value="@npc.SkinTone"/>
+        <NPCHeading PropertyName="NPCAttributes.Attribute.HairColor" OnButtonClick="Refresh" npc="npc" Value="@npc.HairColor"/>
+        <NPCHeading PropertyName="NPCAttributes.Attribute.EyeColor" OnButtonClick="Refresh" npc="npc" Value="@npc.EyeColor"/>
+        <NPCHeading PropertyName="NPCAttributes.Attribute.FacialHair" OnButtonClick="Refresh" npc="npc" Value="@npc.FacialHair"/>
+        <NPCHeading PropertyName="NPCAttributes.Attribute.HairStyle" OnButtonClick="Refresh" npc="npc" Value="@npc.HairStyle"/>
+        <NPCHeading PropertyName="NPCAttributes.Attribute.AurilAttitude" OnButtonClick="Refresh" npc="npc" Value="@npc.AurilAttitude"/>
+        <NPCHeading PropertyName="NPCAttributes.Attribute.Worship" OnButtonClick="Refresh" npc="npc" Value="@npc.Worship"/>
+   
+         
+       
+        <NPCHeading PropertyName="NPCAttributes.Attribute.Cleanliness" OnButtonClick="Refresh" npc="npc" Value="@npc.Cleanliness"/>
+        <NPCHeading PropertyName="NPCAttributes.Attribute.Injuries" OnButtonClick="Refresh" npc="npc" Value="@npc.Injuries"/>
+        <NPCHeading PropertyName="NPCAttributes.Attribute.ColdTolerance" OnButtonClick="Refresh" npc="npc" Value="@npc.ColdTolerance"/>
+        <NPCHeading PropertyName="NPCAttributes.Attribute.Friendliness" OnButtonClick="Refresh" npc="npc" Value="@npc.Friendliness"/>
+        <NPCHeading PropertyName="NPCAttributes.Attribute.AttitudeToMagic" OnButtonClick="Refresh" npc="npc" Value="@npc.AttitudeToMagic"/>
+        <NPCHeading PropertyName="NPCAttributes.Attribute.Quirks" OnButtonClick="Refresh" npc="npc" Value="@npc.Quirks"/>
+        <NPCHeading PropertyName="NPCAttributes.Attribute.Clothes" OnButtonClick="Refresh" npc="npc" Value="@npc.Clothes"/>
     </div>
-        
-        string message = "<tr><p>";
+   
+    <button class="btn btn-primary" @onclick="RefreshNPC"><span class="fa fa-dice-d20 reroll"></span>Reroll</button>
+
+    string message = "<tr><p>";
     @foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(@npc))
         {
             string name = descriptor.Name;
@@ -154,7 +125,7 @@ else
     }
     private async void RefreshNPC()
     {
-        if (string.IsNullOrWhiteSpace(_sexSelection) == false)
+        if (string.IsNullOrWhiteSpace(_sexSelection) == false && _sexSelection != "Any Sex")
         {
             var npcRequest = new NPCRequest() { Sex = _sexSelection };
             var httpResponse = await Http.PostAsJsonAsync($"NPCGenerator/singleSpecific",npcRequest);
@@ -173,7 +144,7 @@ else
         {
             npc = await Http.GetFromJsonAsync<NPC>("NPCGenerator/single");
         }
-        _clicks = 9;
+
         _clicks++;
         if (notifyingCounts.Contains(_clicks))
         {

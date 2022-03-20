@@ -13,7 +13,7 @@
 @inject HttpClient Http
 <style type="text/css">.CentralButton { align-content: center; align-items: center;
                            align-self: center; flex: 1}
-                       .CenterText{ align-self: center; text-align: center}
+                       .CenterText{ text-align: center}
 </style>
 
 @if (Value == null)
@@ -30,29 +30,16 @@
 }
 else
 {
-@*    <div style="border-style: solid; padding-left: 1em; padding-right: 1em; max-width: 100px;">
-        <div class="CentralButton" style="border-style: dot-dash; background-color: aquamarine;">
-            <button class="btn btn-roll-single CentralButton" style="position: relative; left: 50%; /*align-self: center;*/ background-color:blueviolet" @onclick="Update">
-                <span class="fa fa-dice-d20" style="align-self: center; justify-self: center"></span>
-            </button>
-            <br/>
-            <p class="CenterText">@PropertyName.ToString()</p>
-        </div>
+    <div style="border-color: gray; border-bottom-style: solid; width: 130px; padding-left: 5px; padding-right: 5px;">
         <div>
-        <p class="CenterText" style="background-color: brown">@Value</p>
-        </div>
-    </div>*@
-    <div style="border-style: solid; padding-left: 1em; padding-right: 1em; max-width: 100px;">
-        <div style="border-style: dot-dash; background-color: aquamarine;">
-            <button class="btn btn-roll-single CentralButton" style="background-color:blueviolet" @onclick="Update">
+            <button class="btn btn-roll-single CentralButton" style="display: grid; margin: auto;" @onclick="Update">
                 <span class="fa fa-dice-d20" style=""></span>
             </button>
-            <br/>
-            <p class="CenterText">@PropertyName.ToString()</p>
+            <p class="CenterText" style="font-weight: bold">@PropertyName.ToString()</p>
         </div>
-        <div>
-            <p class="CenterText" style="background-color: brown">@Value</p>
-        </div>
+            <div>
+                <p class="CenterText" style="">@Value</p>
+            </div>
     </div>
 }
 
