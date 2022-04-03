@@ -24,6 +24,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Pages\GenerateWeather.razor">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
     <Content Update="Pages\Support.razor">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     </Content>
