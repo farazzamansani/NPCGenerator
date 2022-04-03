@@ -1,0 +1,75 @@
+﻿@page "/GenerateWeather"
+@using NPCGenerator.Shared
+@using System.ComponentModel
+@using System.Text.Json
+@using Blazored.Modal
+@using Blazored.Modal.Services
+@using NPCGenerator.Shared.Services
+
+@inject IModalService modal
+@inject HttpClient Http
+@inject WeatherGenerator _weatherGenerator
+
+<style type="text/css">.main-layout { display: flex;
+                           flex-direction: row;}
+
+                       .NPCText  { display: flex;
+                           text-align: end;
+                           align-self: end;
+                           justify-self: end;
+                           
+                       }
+                       .reroll{
+                           padding-right: 10px;
+                       }
+
+                       .tr {  display: flex; justify-items: end }
+                       .CompactHeading{display: inline; }
+</style>
+<head>
+    <PageTitle>Weather Generator</PageTitle>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+</head>
+
+<h1> Icewind Dale Weather Generator</h1>
+
+
+@if (_weather == null)
+{
+    <p><em>Loading...</em></p>
+    <button class="btn btn-primary" @OnClick="RefreshWeather">Refresh</button>
+}
+else
+{
+
+
+    <div style="display: flex; flex-wrap: wrap;">
+        <p>@((MarkupString)_weather)</p>
+    </div>
+   
+    <button class="btn btn-primary" @onclick="RefreshWeather"><span class="fa fa-dice-d20 reroll"></span>Reroll</button>
+
+
+}
+
+@code {
+    private string? _weather;
+    private int _clicks = 0;
+    private List<int> notifyingCounts = new List<int>() { 10, 30, 60, 100};
+    protected override async Task OnInitializedAsync()
+    {
+        _weather = _weatherGenerator.GenerateWeather();
+    }
+    private async void RefreshWeather()
+    { 
+        _weather = _weatherGenerator.GenerateWeather();
+
+        _clicks++;
+        if (notifyingCounts.Contains(_clicks))
+        {
+            modal.Show<SupportPopUp>("Please consider supporting this project");
+        }
+    }
+
+}

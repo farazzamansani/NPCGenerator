@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: icewinddalenpcgenerator.azurewebsites.net
+Token: ac3977382b7715b9dc6ad870106166fa7a0ae2eb86a58bbb3cf59aa43deb9735
