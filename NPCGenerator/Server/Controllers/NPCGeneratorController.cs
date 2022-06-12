@@ -69,6 +69,7 @@ namespace NPCGenerator.Server.Controllers
         [Produces("application/json")]
         public NPC GetSingleNPC(NPCRequest sex)
         {
+            _logger.LogInformation("GetSingleNPC");
             return GenerateNPC(sex.Sex);
         }
 
