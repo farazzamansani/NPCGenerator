@@ -3,6 +3,8 @@ using System.Reflection.Metadata;
 using Blazored.Modal;
 using Microsoft.AspNetCore.ResponseCompression;
 using NPCGenerator.Server.Services;
+using NPCGenerator.Shared.Services;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,9 @@ builder.Services.AddRazorPages();
 //builder.Services.AddScoped<IMyDependency, MyDependency>(); //In non server blazor this is the same as a singleton
 builder.Services.AddTransient<IMyDependency, MyDependency>();
 builder.Services.AddSingleton<IGenerator, Generator>();
+builder.Services.AddScoped(sp => new WeatherGenerator());
+builder.Services.AddScoped(sp => new HttpClient());
+
 builder.Services.AddBlazoredModal();
 
 var app = builder.Build();
@@ -40,7 +45,7 @@ app.UseRouting();
 
 app.MapRazorPages();
 app.MapControllers();
-app.MapFallbackToFile("index.html");
+app.MapFallbackToPage("/_Host");
 
 app.Run();
 
